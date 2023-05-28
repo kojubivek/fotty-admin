@@ -1,0 +1,13 @@
+.featured {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex: 1;
+  padding: 10px;
+}
+.fea {
+  margin-left: 20px;
+  margin-top: 30px;
+  min-height: 35vh;
+}
