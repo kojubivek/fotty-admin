@@ -7,3 +7,7 @@
   overflow-x: hidden;
   overflow-y: scroll;
 }
+.sidebarMenuTitle {
+  text-decoration: "none";
+  color: rgb(34, 34, 56);
+}

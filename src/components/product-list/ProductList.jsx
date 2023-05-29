@@ -1,36 +1,47 @@
 import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
-import { PageLayout } from "../layout/PageLayout";
-import "./userList.css";
+
 import { Button } from "react-bootstrap";
 import { DeleteOutline } from "@mui/icons-material";
-import "./userList.css";
-
 import { Link } from "react-router-dom";
-import { userRows } from "../../dummyData";
+import { PageLayout } from "../../pages/layout/PageLayout";
+import { productRows } from "../../dummyData";
 
-export const UserList = () => {
-  const [data, setData] = useState(userRows);
+export const ProductList = () => {
+  const [data, setData] = useState(productRows);
   const handleDelete = (id) => {
     setData(data.filter((item) => item.id !== id));
   };
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
     {
-      field: "username",
-      headerName: "User",
-      width: 150,
-    },
-    {
-      field: "email",
-      headerName: "Email",
-      width: 150,
-    },
-    {
       field: "status",
       headerName: "Status",
-      type: "string",
+      width: 150,
+    },
+    {
+      field: "name",
+      headerName: "Name",
+      width: 150,
+    },
+    {
+      field: "img",
+      headerName: "Image",
+      type: "file",
+      width: 110,
+    },
+    {
+      field: "stock",
+      headerName: "Stock",
+
+      width: 110,
+    },
+    {
+      field: "price",
+      headerName: "Price",
+      type: "currency",
+
       width: 110,
     },
     {
@@ -41,7 +52,7 @@ export const UserList = () => {
         return (
           <>
             {" "}
-            <Link to={"/users/" + params.row.id}>
+            <Link to={"/product/" + params.row.id}>
               <Button variant="info">Edit</Button>
             </Link>
             <DeleteOutline
@@ -55,7 +66,8 @@ export const UserList = () => {
   ];
   return (
     <PageLayout>
-      <div className="userList">
+      <div className="user">
+        {" "}
         <Box sx={{ height: 400, width: "100%" }}>
           <DataGrid
             disableSelectionOnClick

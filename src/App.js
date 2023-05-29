@@ -7,6 +7,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { UserList } from "./pages/userlist/UserList";
 import { User } from "./pages/user/User";
 import { NewUser } from "./pages/new-user/NewUser.jsx";
+import { Product } from "./components/product/Product";
+import { ProductList } from "./components/product-list/ProductList";
+import { NewProduct } from "./pages/newProduct/NewProduct";
 
 const App = () => {
   return (
@@ -15,6 +18,10 @@ const App = () => {
       <Route path="/users" element={<UserList />} />
       <Route path="/users/:id" element={<User />} />
       <Route path="/newUser" element={<NewUser />} />
+
+      <Route path="/productlists" element={<ProductList />} />
+      <Route path="/product/:productId" element={<Product />} />
+      <Route path="/newproduct" element={<NewProduct />} />
     </Routes>
   );
 };

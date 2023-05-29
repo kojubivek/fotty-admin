@@ -3,3 +3,7 @@
 .container-color {
   background: rgb(225, 60, 60);
 }
+.link {
+  text-decoration: none;
+  color: inherit;
+}

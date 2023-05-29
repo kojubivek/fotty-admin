@@ -58,3 +58,30 @@ export const userRows = [
     action: "edit",
   },
 ];
+
+export const productRows = [
+  {
+    id: 1,
+    status: "inactive",
+    name: "Chelsea Jersey",
+    img: "",
+    stock: 123,
+    price: "$120",
+    action: "edit",
+  },
+];
+
+export const productData = [
+  {
+    name: "Jan",
+    "Sales": 400,
+  },
+  {
+    name: "Feb",
+    "Sales": 400,
+  },
+  {
+    name: "Mar",
+    "Sales": 40,
+  },
+];

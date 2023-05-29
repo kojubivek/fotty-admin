@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  Container,
   Row,
   Col,
   Button,
@@ -18,7 +17,6 @@ import {
   AttachMoneyOutlined,
   FeedbackOutlined,
   Home,
-  MailLockOutlined,
   MailOutlined,
   ManageAccounts,
   MessageSharp,
@@ -28,8 +26,8 @@ import {
   VerifiedUserOutlined,
 } from "@mui/icons-material";
 import PersonIcon from "@mui/icons-material/Person";
+import { Link } from "react-router-dom";
 export const CustomSidebar = () => {
-  
   return (
     <div className="sidebar">
       <Row>
@@ -42,28 +40,42 @@ export const CustomSidebar = () => {
               className="d-flex alight-item-center gap-2"
               variant="light"
               action
-              href="#link1"
             >
-              <Home />
-              <span>Home</span>
+              <Link
+                className="sidebarMenuTitle"
+                style={{ textDecoration: "none" }}
+                to="/"
+              >
+                <Home />
+                <span className="sidebarMenuTitle">Home</span>
+              </Link>
             </ListGroup.Item>
             <ListGroup.Item
               className="d-flex alight-item-center gap-2"
               variant="light"
               action
-              href="#link2"
             >
-              <AnalyticsOutlined />
-              <span>Analytics</span>
+              <Link
+                className="sidebarMenuTitle"
+                style={{ textDecoration: "none" }}
+              >
+                <AnalyticsOutlined />
+                <span>Analytics</span>
+              </Link>
             </ListGroup.Item>
             <ListGroup.Item
               className="d-flex alight-item-center gap-2"
               variant="light"
               action
-              href="#link3"
             >
-              <ScaleSharp />
-              <span>Sales</span>
+              <Link
+                className="sidebarMenuTitle"
+                style={{ textDecoration: "none" }}
+                to="/sales"
+              >
+                <ScaleSharp />
+                <span>Sales</span>
+              </Link>
             </ListGroup.Item>
             <hr />
 
@@ -74,37 +86,58 @@ export const CustomSidebar = () => {
               className="d-flex alight-item-center gap-2"
               variant="light"
               action
-              href="#link4"
             >
-              <PersonIcon />
-              <span>User</span>
+              <Link
+                className="sidebarMenuTitle"
+                style={{ textDecoration: "none" }}
+                to="/users"
+              >
+                <PersonIcon />
+                <span>User</span>
+              </Link>
             </ListGroup.Item>
             <ListGroup.Item
               className="d-flex alight-item-center gap-2"
               variant="light"
               action
-              href="#link5"
             >
-              <StoreMallDirectoryOutlined />
-              <span>Product</span>
+              <Link
+                className="sidebarMenuTitle"
+                style={{ textDecoration: "none" }}
+                to="/productlists"
+              >
+                <StoreMallDirectoryOutlined />
+                <span>Product</span>
+              </Link>
             </ListGroup.Item>
             <ListGroup.Item
               className="d-flex alight-item-center gap-2"
               variant="light"
               action
-              href="#link6"
             >
-              <AttachMoneyOutlined />
-              <span>Transaction</span>
+              <Link
+                className="sidebarMenuTitle"
+                style={{ textDecoration: "none" }}
+                to="/transaction"
+              >
+                <AttachMoneyOutlined />
+                <span>Transaction</span>
+              </Link>
             </ListGroup.Item>
             <ListGroup.Item
               className="d-flex alight-item-center gap-2"
               variant="light"
               action
-              href="#link7"
             >
-              <ArticleOutlined />
-              <span>Reports</span>
+              <Link
+                className="sidebarMenuTitle"
+                style={{ textDecoration: "none" }}
+                to="/reports"
+              >
+                {" "}
+                <ArticleOutlined />
+                <span>Reports</span>
+              </Link>
             </ListGroup.Item>
             <hr />
 
@@ -115,28 +148,44 @@ export const CustomSidebar = () => {
               className="d-flex alight-item-center gap-2"
               variant="light"
               action
-              href="#link8"
             >
-              <MailOutlined />
-              <span>Mail</span>
+              <Link
+                className="sidebarMenuTitle"
+                style={{ textDecoration: "none" }}
+                to="/mail"
+              >
+                <MailOutlined />
+                <span>Mail</span>
+              </Link>
             </ListGroup.Item>
             <ListGroup.Item
               className="d-flex alight-item-center gap-2"
               variant="light"
               action
-              href="#link9"
             >
-              <FeedbackOutlined />
-              <span>Feedback</span>
+              <Link
+                className="sidebarMenuTitle"
+                style={{ textDecoration: "none" }}
+                to="/feedback"
+              >
+                <FeedbackOutlined />
+                <span>Feedback</span>
+              </Link>
             </ListGroup.Item>
             <ListGroup.Item
               className="d-flex alight-item-center gap-2"
               variant="light"
               action
-              href="#link10"
             >
-              <MessageSharp />
-              <span>Message</span>
+              <Link
+                className="sidebarMenuTitle"
+                style={{ textDecoration: "none" }}
+                to="/message"
+              >
+                {" "}
+                <MessageSharp />
+                <span>Message</span>
+              </Link>
             </ListGroup.Item>
             <hr />
 
