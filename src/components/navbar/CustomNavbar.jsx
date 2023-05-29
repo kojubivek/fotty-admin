@@ -14,7 +14,7 @@ import HomeIcon from "@mui/icons-material/Home";
 export const CustomNavbar = () => {
   return (
     <div>
-      <Navbar bg="dark" variant="dark" expand="md" className="">
+      <Navbar bg="dark" variant="dark" expand="md" className="fixed">
         <Container fluid>
           <Navbar.Brand href="#">FootyBaller</Navbar.Brand>
           <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-md`} />

@@ -15,7 +15,7 @@ export const Chart = ({ title, data, datakey, grid }) => {
       <h3 className="chartTitle mb-3">{title}</h3>
       <ResponsiveContainer width="100%" aspect={4 / 1}>
         <LineChart data={data}>
-          <XAxis dataKey={datakey} stroke="#6c6c81"></XAxis>
+          <XAxis dataKey="name" stroke="#6c6c81" />
           <Line type="monotone" stroke="#6c6c81" dataKey={datakey}></Line>
           <Tooltip />
           {grid && (

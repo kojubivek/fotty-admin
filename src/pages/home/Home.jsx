@@ -4,6 +4,7 @@ import "./Home.css";
 import { FeaturedInfo } from "../../components/featuredinfo/FeaturedInfo";
 import { Chart } from "../../components/chart/Chart";
 import { userData } from "../../dummyData";
+import { SmallWidget } from "../../components/widget/SmallWidget";
 export const Home = () => {
   return (
     <PageLayout>
@@ -15,6 +16,7 @@ export const Home = () => {
           datakey="Active User"
           grid
         />
+        <SmallWidget />
       </div>
     </PageLayout>
   );
