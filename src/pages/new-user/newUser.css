@@ -1,0 +1,8 @@
+.newUser {
+  flex: 4;
+  padding: 30px;
+  align-items: center;
+}
+.userform {
+  width: 75vw;
+}

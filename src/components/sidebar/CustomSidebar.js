@@ -29,11 +29,7 @@ import {
 } from "@mui/icons-material";
 import PersonIcon from "@mui/icons-material/Person";
 export const CustomSidebar = () => {
-  const [showSidebar, setShowSidebar] = React.useState(false);
-
-  const handleToggleSidebar = () => {
-    setShowSidebar(!showSidebar);
-  };
+  
   return (
     <div className="sidebar">
       <Row>

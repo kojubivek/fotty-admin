@@ -48,3 +48,13 @@ export const userData = [
     "Active User": 4000,
   },
 ];
+export const userRows = [
+  {
+    id: 1,
+    username: "Jon Snow",
+    email: "jon@snow.com",
+    status: "active",
+    transaction: "$120",
+    action: "edit",
+  },
+];

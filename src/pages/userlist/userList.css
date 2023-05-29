@@ -1,0 +1,14 @@
+.user {
+  padding: 20px;
+  flex: 4;
+  background: #fffdfd;
+  height: 80vh;
+  width: 80vw;
+  overflow: auto;
+}
+
+.iconDelete {
+  color: #f70404;
+  cursor: pointer;
+  margin-left: 10px;
+}
