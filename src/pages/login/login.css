@@ -1,0 +1,24 @@
+.loginpage {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(
+      90deg,
+      rgba(2, 0, 36, 0.319) 0%,
+      rgba(163, 59, 94, 0.354) 35%,
+      rgba(0, 213, 255, 0.405) 100%
+    ),
+    url("../../assests/img/soccer-manager.jpeg");
+
+  background-size: cover;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.formSignIn {
+  display: flex;
+  justify-content: space-between;
+}

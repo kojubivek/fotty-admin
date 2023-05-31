@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card, Container } from "react-bootstrap";
 import "./FeaturedItem.css";
 import { ArrowDownward, ArrowUpward } from "@mui/icons-material";
+import { userRequest } from "../../helper/axiosHelper";
 export const FeaturedInfo = () => {
+  const [income, setIncome] = useState([]);
+  useEffect(() => {
+    const getIncome = async () => {
+      try {
+        const res = userRequest.get(`/order/income`);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+  }, []);
   return (
     <div className="fea d-flex justify-content-between  gap-5">
       <div className="featured  ">

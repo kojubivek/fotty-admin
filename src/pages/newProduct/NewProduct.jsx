@@ -1,8 +1,72 @@
-import React from "react";
+import React, { useState } from "react";
 import { PageLayout } from "../layout/PageLayout";
+import {
+  getStorage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+} from "firebase/storage";
 import "./NewProduct.css";
 import { Button, Form } from "react-bootstrap";
+import app from "../../firebase";
+import { useDispatch } from "react-redux";
+import { addProducts } from "../../redux/apiCall";
 export const NewProduct = () => {
+  const [inputs, setInputs] = useState({});
+  const [file, setFile] = useState(null);
+  const [cat, setCat] = useState([]);
+  const dispatch = useDispatch();
+  const handleChange = (e) => {
+    setInputs({ ...inputs, [e.target.name]: e.target.value });
+  };
+  const handleCat = (e) => {
+    setCat(e.target.value);
+  };
+  const handleClick = (e) => {
+    e.preventDefault();
+    const fileName = new Date().getTime() + file.name;
+
+    const storage = getStorage(app);
+
+    const storageRef = ref(storage, fileName);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+
+    // Register three observers:
+    // 1. 'state_changed' observer, called any time the state changes
+    // 2. Error observer, called on failure
+    // 3. Completion observer, called on successful completion
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        // Observe state change events such as progress, pause, and resume
+        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log("Upload is " + progress + "% done");
+        switch (snapshot.state) {
+          case "paused":
+            console.log("Upload is paused");
+            break;
+          case "running":
+            console.log("Upload is running");
+            break;
+        }
+      },
+      (error) => {
+        // Handle unsuccessful uploads
+      },
+      () => {
+        // Handle successful uploads on complete
+        // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          const product = { ...inputs, img: downloadURL, categories: cat };
+          dispatchEvent(addProducts(product));
+        });
+      }
+    );
+    console.log(file);
+  };
+
   return (
     <PageLayout>
       {" "}
@@ -11,29 +75,92 @@ export const NewProduct = () => {
         <Form>
           <Form.Group className="mb-3" controlId="">
             <Form.Label>Product Name</Form.Label>
-            <Form.Control type="text" placeholder="Product Name" required />
+            <Form.Control
+              name="title"
+              type="text"
+              placeholder="Product Name"
+              required
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="">
+            <Form.Label>Description</Form.Label>
+            <Form.Control
+              name="desc"
+              type="text"
+              placeholder="Product Description"
+              required
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="">
+            <Form.Label>Price</Form.Label>
+            <Form.Control
+              name="price"
+              type="number"
+              placeholder="Enter Price"
+              required
+              onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="">
+            <Form.Label>Categories</Form.Label>
+            <Form.Control
+              name="categories"
+              type="text"
+              placeholder="Jersey/Shoes"
+              required
+              onChange={(e) => setCat(e.target.value)}
+            />
           </Form.Group>
           <Form.Group className="mb-3" controlId="">
             <Form.Label>Color</Form.Label>
-            <Form.Control type="text" placeholder="Color" required />
+            <Form.Control
+              name="color"
+              type="text"
+              placeholder="Color"
+              required
+              onChange={handleChange}
+            />
           </Form.Group>
           <Form.Group className="mb-3" controlId="">
             <Form.Label>Status</Form.Label>
-            <Form.Select className="mb-3" required>
+            <Form.Select
+              name="status"
+              className="mb-3"
+              required
+              onChange={handleChange}
+            >
               <option>Status</option>
               <option value="active">Active</option>
               <option value="inactive">In Active</option>
             </Form.Select>
             <Form.Group className="mb-3" controlId="">
               <Form.Label>Stock</Form.Label>
-              <Form.Control type="text" placeholder="Stock Number" required />
+              <Form.Select
+                name="stock"
+                className="mb-3"
+                onChange={handleChange}
+                required
+              >
+                <option>Available</option>
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+              </Form.Select>
             </Form.Group>
           </Form.Group>
           <Form.Group controlId="formFile" className="mb-3">
             <Form.Label>Upload Image</Form.Label>
-            <Form.Control type="file" />
+            <Form.Control
+              onChange={(e) => setFile(e.target.files[0])}
+              type="file"
+            />
           </Form.Group>
-          <Button variant="primary" type="submit">
+          <Button
+            variant="primary"
+            type="submit"
+            onClick={(e) => handleClick(e)}
+          >
             Submit
           </Button>
         </Form>

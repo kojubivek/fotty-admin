@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import { DataGrid } from "@mui/x-data-grid";
 
@@ -6,15 +6,21 @@ import { Button } from "react-bootstrap";
 import { DeleteOutline } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { PageLayout } from "../../pages/layout/PageLayout";
-import { productRows } from "../../dummyData";
 
+import { deleteProducts, getProducts } from "../../redux/apiCall";
+import { useDispatch, useSelector } from "react-redux";
 export const ProductList = () => {
-  const [data, setData] = useState(productRows);
+  const products = useSelector((state) => state.products.product);
+  console.log(products, "products");
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getProducts());
+  }, [dispatch]);
   const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
+    dispatch(deleteProducts(id));
   };
   const columns = [
-    { field: "id", headerName: "ID", width: 90 },
+    { field: "_id", headerName: "ID", width: 90 },
     {
       field: "status",
       headerName: "Status",
@@ -52,12 +58,12 @@ export const ProductList = () => {
         return (
           <>
             {" "}
-            <Link to={"/product/" + params.row.id}>
+            <Link to={"/product/" + params.row._id}>
               <Button variant="info">Edit</Button>
             </Link>
             <DeleteOutline
               className="iconDelete "
-              onClick={() => handleDelete(params.row.id)}
+              onClick={() => handleDelete(params.row._id)}
             />
           </>
         );
@@ -71,8 +77,9 @@ export const ProductList = () => {
         <Box sx={{ height: 400, width: "100%" }}>
           <DataGrid
             disableSelectionOnClick
-            rows={data}
+            rows={products}
             columns={columns}
+            getRowId={(row) => row._id}
             initialState={{
               pagination: {
                 paginationModel: {
