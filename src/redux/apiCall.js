@@ -1,4 +1,5 @@
-import { publicRequest, userRequest } from "../helper/axiosHelper";
+import { publicRequest } from "../helper/axiosHelper";
+import { userRequest } from "../helper/userRequests";
 import {
   addProductFailure,
   addProductStart,
@@ -30,7 +31,7 @@ export const getProducts = () => async (dispatch) => {
   dispatch(getProductStart());
   try {
     const res = await publicRequest.get("/products");
-    console.log(res.data, "products");
+    console.log(res.data.products);
     dispatch(getProductSuccess(res.data.products));
   } catch (error) {
     dispatch(getProductFailure());
@@ -46,22 +47,24 @@ export const deleteProducts = (id) => async (dispatch) => {
     dispatch(deleteProductFailure());
   }
 };
-export const updateProducts = (id, product) => async (dispatch) => {
-  dispatch(updateProductStart());
-  try {
-    const res = await userRequest.put(`/products/${id}`);
-    console.log(res.data, "products");
-    dispatch(updateProductSuccess({ id, product }));
-  } catch (error) {
-    dispatch(updateProductFailure());
-  }
-};
+export const updateProducts =
+  ({ _id, ...rest }) =>
+  async (dispatch) => {
+    dispatch(updateProductStart());
+    try {
+      const res = await userRequest.put(`/products/${_id}`, rest);
+      console.log(res.data, "products");
+      dispatch(updateProductSuccess({ _id, rest }));
+    } catch (error) {
+      dispatch(updateProductFailure());
+    }
+  };
 export const addProducts = (product) => async (dispatch) => {
   dispatch(addProductStart());
   try {
     const res = await userRequest.post(`/products`, product);
     console.log(res.data, "products");
-    dispatch(addProductSuccess(res.data.product));
+    dispatch(addProductSuccess(res.data.data));
   } catch (error) {
     dispatch(addProductFailure());
   }

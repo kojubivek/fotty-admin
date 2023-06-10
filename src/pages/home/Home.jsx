@@ -5,7 +5,7 @@ import { FeaturedInfo } from "../../components/featuredinfo/FeaturedInfo";
 import { Chart } from "../../components/chart/Chart";
 import { userData } from "../../dummyData";
 import { SmallWidget } from "../../components/widget/SmallWidget";
-import { userRequest } from "../../helper/axiosHelper";
+import { userRequest } from "../../helper/userRequests";
 import { format } from "timeago.js";
 export const Home = () => {
   const [userStats, setUserStats] = useState([]);
@@ -42,10 +42,11 @@ export const Home = () => {
       } catch (error) {}
     };
     getStats();
-  }, [MONTHS]);
-  console.log(userStats);
+  }, []);
+  console.log("before rendering home", userStats);
   return (
     <PageLayout>
+      {console.log("from render")}
       <div className="home">
         <FeaturedInfo />
         <Chart

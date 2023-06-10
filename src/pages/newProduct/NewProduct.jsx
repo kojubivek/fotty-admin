@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { PageLayout } from "../layout/PageLayout";
 import {
   getStorage,
@@ -9,8 +9,79 @@ import {
 import "./NewProduct.css";
 import { Button, Form } from "react-bootstrap";
 import app from "../../firebase";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addProducts } from "../../redux/apiCall";
+import { getCategory } from "../../redux/category/categoryAction";
+const inputes = [
+  {
+    name: "name",
+    label: "Name",
+    type: "text",
+    placeholder: "Samsung TV.",
+    required: true,
+  },
+
+  {
+    name: "sku",
+    label: "Sku",
+    type: "text",
+    placeholder: "SAM-TV-8",
+    required: true,
+  },
+  {
+    name: "slug",
+    label: "Slug",
+    type: "text",
+    placeholder: "SAM-TV-8",
+    required: true,
+  },
+  {
+    name: "qty",
+    label: "Qty",
+    type: "number",
+    placeholder: "50",
+    required: true,
+  },
+  {
+    name: "price",
+    label: "Price",
+    type: "number",
+    placeholder: "1000",
+    required: true,
+  },
+  {
+    name: "salesPrice",
+    label: "Sales Price",
+    type: "number",
+    placeholder: "800",
+  },
+  {
+    name: "salesStartDate",
+    label: "Sales Start Date",
+    type: "date",
+  },
+  {
+    name: "salesEndDate",
+    label: "Sales End Date",
+    type: "date",
+  },
+  {
+    name: "description",
+    label: "Description",
+    type: "text",
+    rows: 10,
+    placeholder: "write detail information abou the product",
+    required: true,
+  },
+  // {
+  //   name: "images",
+  //   label: "Images",
+  //   type: "file",
+  //   multiple: true,
+  //   required: true,
+  //   accept: "image/*",
+  // },
+];
 export const NewProduct = () => {
   const [inputs, setInputs] = useState({});
   const [file, setFile] = useState(null);
@@ -19,6 +90,11 @@ export const NewProduct = () => {
   const handleChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
+  const { category } = useSelector((state) => state.category);
+
+  useEffect(() => {
+    dispatch(getCategory());
+  }, [dispatch]);
   const handleCat = (e) => {
     setCat(e.target.value);
   };
@@ -59,97 +135,48 @@ export const NewProduct = () => {
         // Handle successful uploads on complete
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          const product = { ...inputs, img: downloadURL, categories: cat };
-          dispatchEvent(addProducts(product));
+          const product = { ...inputs, images: downloadURL };
+          dispatch(addProducts(product));
         });
       }
     );
-    console.log(file);
   };
 
   return (
     <PageLayout>
       {" "}
-      <div class="newProduct">
+      <div className="newProduct">
         <h1>New Product</h1>
         <Form>
-          <Form.Group className="mb-3" controlId="">
-            <Form.Label>Product Name</Form.Label>
-            <Form.Control
-              name="title"
-              type="text"
-              placeholder="Product Name"
-              required
-              onChange={handleChange}
-            />
+          <Form.Group key={"product-form"} className="mb-3" controlId="">
+            {inputes.map((item, i) => (
+              <>
+                <Form.Label key={i + 1} className="bold">
+                  {item.name}
+                </Form.Label>
+                <Form.Control
+                  key={i}
+                  name={item.name}
+                  type={item.type}
+                  placeholder={item.placeholder}
+                  required
+                  onChange={handleChange}
+                />
+              </>
+            ))}
           </Form.Group>
-          <Form.Group className="mb-3" controlId="">
-            <Form.Label>Description</Form.Label>
-            <Form.Control
-              name="desc"
-              type="text"
-              placeholder="Product Description"
-              required
-              onChange={handleChange}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="">
-            <Form.Label>Price</Form.Label>
-            <Form.Control
-              name="price"
-              type="number"
-              placeholder="Enter Price"
-              required
-              onChange={handleChange}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="">
-            <Form.Label>Categories</Form.Label>
-            <Form.Control
-              name="categories"
-              type="text"
-              placeholder="Jersey/Shoes"
-              required
-              onChange={(e) => setCat(e.target.value)}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="">
-            <Form.Label>Color</Form.Label>
-            <Form.Control
-              name="color"
-              type="text"
-              placeholder="Color"
-              required
-              onChange={handleChange}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="">
-            <Form.Label>Status</Form.Label>
-            <Form.Select
-              name="status"
-              className="mb-3"
-              required
-              onChange={handleChange}
-            >
-              <option>Status</option>
-              <option value="active">Active</option>
-              <option value="inactive">In Active</option>
+          <Form.Label>Select Category</Form.Label>
+          <Form.Group className="mb-3">
+            <Form.Select name="parentCat" onChange={handleChange} required>
+              <option value={null}>Select Category</option>
+              {category.map((item) => (
+                <option key={item._id} value={item._id}>
+                  {item.name}
+                </option>
+              ))}
             </Form.Select>
-            <Form.Group className="mb-3" controlId="">
-              <Form.Label>Stock</Form.Label>
-              <Form.Select
-                name="stock"
-                className="mb-3"
-                onChange={handleChange}
-                required
-              >
-                <option>Available</option>
-                <option value="true">Yes</option>
-                <option value="false">No</option>
-              </Form.Select>
-            </Form.Group>
           </Form.Group>
-          <Form.Group controlId="formFile" className="mb-3">
+          <Form.Group key="image-upload" controlId="formFile" className="mb-3">
             <Form.Label>Upload Image</Form.Label>
             <Form.Control
               onChange={(e) => setFile(e.target.files[0])}

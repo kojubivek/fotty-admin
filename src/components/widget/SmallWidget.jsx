@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Card, ListGroup, Table } from "react-bootstrap";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 
-import { userRequest } from "../../helper/axiosHelper";
+import { userRequest } from "../../helper/userRequests";
 import LargeWidget from "./LargeWidget";
 export const SmallWidget = () => {
   const [users, setUsers] = useState([]);

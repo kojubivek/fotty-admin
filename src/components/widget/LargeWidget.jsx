@@ -1,7 +1,7 @@
 import { Avatar } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Button, Card, Table } from "react-bootstrap";
-import { userRequest } from "../../helper/axiosHelper";
+import { userRequest } from "../../helper/userRequests";
 import { format } from "timeago.js";
 
 const LargeWidget = () => {

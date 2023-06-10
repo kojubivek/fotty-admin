@@ -10,12 +10,12 @@ import { PageLayout } from "../../pages/layout/PageLayout";
 import { deleteProducts, getProducts } from "../../redux/apiCall";
 import { useDispatch, useSelector } from "react-redux";
 export const ProductList = () => {
-  const products = useSelector((state) => state.products.product);
-  console.log(products, "products");
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
+  const product = useSelector((state) => state.products);
+
   const handleDelete = (id) => {
     dispatch(deleteProducts(id));
   };
@@ -32,13 +32,13 @@ export const ProductList = () => {
       width: 150,
     },
     {
-      field: "img",
+      field: "images",
       headerName: "Image",
       type: "file",
       width: 110,
     },
     {
-      field: "stock",
+      field: "qty",
       headerName: "Stock",
 
       width: 110,
@@ -74,10 +74,13 @@ export const ProductList = () => {
     <PageLayout>
       <div className="user">
         {" "}
+        <Link to={"/newProduct/"}>
+          <Button variant="info">Create New Product</Button>
+        </Link>
         <Box sx={{ height: 400, width: "100%" }}>
           <DataGrid
             disableSelectionOnClick
-            rows={products}
+            rows={product?.product}
             columns={columns}
             getRowId={(row) => row._id}
             initialState={{

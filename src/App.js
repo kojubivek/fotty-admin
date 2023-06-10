@@ -11,17 +11,25 @@ import { Product } from "./components/product/Product";
 import { ProductList } from "./components/product-list/ProductList";
 import { NewProduct } from "./pages/newProduct/NewProduct";
 import Login from "./pages/login/Login";
+import { useSelector } from "react-redux";
+import Categories from "./pages/categories/Categories";
+import EditCategory from "./pages/categories/EditCategory";
 
 const App = () => {
-  const admin = JSON.parse(
-    JSON.parse(localStorage.getItem("persist:root")).user
-  ).currentUser.isAdmin;
+  const isAdmin = useSelector((state) => state.user.currentUser.isAdmin);
+
+  // const admin =
+  //   localStorage.getItem("persist:root") &&
+  //   JSON.parse(JSON.parse(localStorage.getItem("persist:root"))?.user)
+  //     ?.currentUser?.isAdmin;
+  // // const admin = false;
+  // console.log("admin", admin);
   return (
     <Routes>
-      <Route path="/login" element={<Login />} />
-      {admin && (
+      <Route path="/" element={<Login />} />
+      {isAdmin && (
         <>
-          <Route exact path="/" element={<Home />} />
+          <Route exact path="/home" element={<Home />} />
           <Route path="/users" element={<UserList />} />
           <Route path="/users/:id" element={<User />} />
           <Route path="/newUser" element={<NewUser />} />
@@ -29,6 +37,8 @@ const App = () => {
           <Route path="/productlists" element={<ProductList />} />
           <Route path="/product/:productId" element={<Product />} />
           <Route path="/newproduct" element={<NewProduct />} />
+          <Route path="/category" element={<Categories />} />
+          <Route path="/category/:id" element={<EditCategory />} />
         </>
       )}
     </Routes>

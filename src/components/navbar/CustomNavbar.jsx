@@ -33,7 +33,7 @@ export const CustomNavbar = () => {
                 <Nav.Link href="#action1">
                   <NotificationsIcon />
                 </Nav.Link>
-                <Nav.Link href="#action2">
+                <Nav.Link href="/home">
                   <HomeIcon />
                 </Nav.Link>
                 <NavDropdown

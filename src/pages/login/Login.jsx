@@ -4,15 +4,17 @@ import { loginStart, loginSuccess, loginFailure } from "../../redux/userSlice";
 import "./login.css";
 import { Button, Card, Form } from "react-bootstrap";
 import { login } from "../../redux/apiCall";
+import { useNavigate } from "react-router-dom";
 const Login = () => {
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
   const dispatch = useDispatch();
-  const { currentUser } = useSelector((state) => state.user);
+  const navigate = useNavigate();
+
   const handleOnSubmit = (e) => {
     e.preventDefault();
     console.log(username, password);
-    dispatch(login({ username, password }));
+    dispatch(login({ username, password })) && navigate("/home");
   };
 
   return (
@@ -21,7 +23,7 @@ const Login = () => {
         <Card className="shadow " style={{ width: "50rem" }}>
           <Card.Header className="fs-2">Admin Login</Card.Header>
           <Card.Body>
-            <Form>
+            <Form onSubmit={handleOnSubmit}>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Username</Form.Label>
                 <Form.Control
@@ -44,12 +46,7 @@ const Login = () => {
                 <Form.Check type="checkbox" label="Remember me" />
               </Form.Group>
               <Form.Group className="mb-3 d-flex">
-                <Button
-                  className="flex-grow-1"
-                  variant="dark"
-                  type="submit"
-                  onClick={(e) => handleOnSubmit(e)}
-                >
+                <Button className="flex-grow-1" variant="dark" type="submit">
                   {" "}
                   Submit
                 </Button>

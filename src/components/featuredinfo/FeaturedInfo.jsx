@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Card, Container } from "react-bootstrap";
 import "./FeaturedItem.css";
 import { ArrowDownward, ArrowUpward } from "@mui/icons-material";
-import { userRequest } from "../../helper/axiosHelper";
+import { userRequest } from "../../helper/userRequests";
 export const FeaturedInfo = () => {
   const [income, setIncome] = useState([]);
   useEffect(() => {
